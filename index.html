@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lucky Parlor Slots — Free, No Sign-up, No Purchases</title>
+  <meta name="description" content="Free slot machine game for fun. No downloads, no sign-up, no purchases — just spin.">
+  <meta name="theme-color" content="#062b18">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B0%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="coins" aria-label="Your coins">
+      <span class="coin-icon" aria-hidden="true"></span>
+      <span id="balance" class="num">0</span>
+    </div>
+
+    <div class="level" title="Your level — you get bonus coins every time it goes up">
+      <span class="level-star" aria-hidden="true">★</span>
+      <span>Level <b id="level">1</b></span>
+      <div class="level-bar"><div id="levelFill"></div></div>
+    </div>
+
+    <button id="bonusBtn" class="btn bonus" type="button">
+      <span class="bonus-icon" aria-hidden="true">🎁</span>
+      <span id="bonusText">Free Coins</span>
+    </button>
+
+    <nav class="top-actions">
+      <button id="themeBtn" class="btn small" type="button" aria-label="Change theme">🎨 <span class="hide-sm">Theme</span></button>
+      <button id="soundBtn" class="btn small" type="button" aria-label="Sound on or off">🔊</button>
+      <button id="helpBtn" class="btn small" type="button" aria-label="How to play and payouts">❔ <span class="hide-sm">Help</span></button>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="ad-rail" aria-label="Advertisement">
+      <div class="ad-slot ad-160x600" data-ad-slot-key="left"></div>
+    </aside>
+
+    <main class="stage">
+      <section class="machine" id="machine" aria-label="Slot machine">
+        <div class="marquee">
+          <h1 id="gameTitle">Jade Dragon</h1>
+          <div id="banner" class="banner" aria-live="polite"></div>
+          <div class="fs-badge" id="fsBadge" hidden>FREE SPINS: <b id="fsLeft">0</b> left · all wins ×2</div>
+        </div>
+
+        <div class="reels-frame">
+          <div class="reels" id="reels"></div>
+        </div>
+
+        <div class="controls">
+          <div class="bet-box">
+            <button id="betDown" class="btn round" type="button" aria-label="Lower bet">−</button>
+            <div class="readout">
+              <small>BET</small>
+              <span id="bet" class="num">0</span>
+            </div>
+            <button id="betUp" class="btn round" type="button" aria-label="Raise bet">+</button>
+          </div>
+
+          <div class="readout win-box">
+            <small id="winLabel">WIN</small>
+            <span id="win" class="num">0</span>
+          </div>
+
+          <div class="spin-box">
+            <button id="fastBtn" class="btn toggle" type="button" aria-pressed="false">⚡<small>FAST</small></button>
+            <button id="autoBtn" class="btn toggle" type="button" aria-pressed="false">🔁<small>AUTO</small></button>
+            <button id="spinBtn" class="btn spin" type="button">
+              <span class="spin-label">SPIN</span>
+              <small>Hold for auto</small>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="ad-banner-wrap" aria-label="Advertisement">
+        <div class="ad-slot ad-banner" data-ad-slot-key="bottom"></div>
+      </div>
+
+      <footer class="foot">
+        <p>Just for fun. Coins are pretend and can't be bought, sold, or cashed out. Your progress is saved in this browser only.</p>
+        <p><a href="privacy.html">Privacy</a> · <button id="resetBtn" class="linklike" type="button">Start over</button></p>
+      </footer>
+    </main>
+
+    <aside class="ad-rail" aria-label="Advertisement">
+      <div class="ad-slot ad-160x600" data-ad-slot-key="right"></div>
+    </aside>
+  </div>
+
+  <!-- Overlays -->
+  <div id="celebrate" class="celebrate" hidden>
+    <div class="celebrate-inner">
+      <div id="celebrateTitle" class="celebrate-title">BIG WIN!</div>
+      <div id="celebrateAmount" class="celebrate-amount num">0</div>
+      <div class="celebrate-tap">Tap anywhere to continue</div>
+    </div>
+  </div>
+
+  <dialog id="themeDlg" class="dlg">
+    <h2>Choose a theme</h2>
+    <p class="muted">Your coins and level stay the same whichever theme you pick.</p>
+    <div id="themeList" class="theme-list"></div>
+    <form method="dialog"><button class="btn wide">Close</button></form>
+  </dialog>
+
+  <dialog id="helpDlg" class="dlg">
+    <h2>How to play</h2>
+    <ul class="help">
+      <li>Press <b>SPIN</b> (or the space bar). Use <b>−</b> and <b>+</b> to change your bet.</li>
+      <li>Matching pictures on reels next to each other, starting from the <b>left</b>, win. There are 243 ways to win — any row counts.</li>
+      <li><span id="helpWild"></span> <b>WILD</b> stands in for any picture except the bonus.</li>
+      <li><span id="helpScatter"></span> <b>3 or more anywhere</b> start free spins where every win is doubled.</li>
+      <li>Free coins every hour — press the 🎁 button. Run out? You'll get a free refill.</li>
+    </ul>
+    <h3>Payouts at your current bet <small class="muted">(one way)</small></h3>
+    <table id="payTable" class="paytable"></table>
+    <form method="dialog"><button class="btn wide">Got it</button></form>
+  </dialog>
+
+  <dialog id="msgDlg" class="dlg">
+    <div id="msgBody"></div>
+    <form method="dialog"><button id="msgOk" class="btn wide spin-like">OK</button></form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/skins.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ads.js"></script>
+</body>
+</html>

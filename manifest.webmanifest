@@ -1,0 +1,11 @@
+{
+  "name": "Lucky Parlor Slots",
+  "short_name": "Lucky Slots",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#062b18",
+  "theme_color": "#062b18",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
