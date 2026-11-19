@@ -3,6 +3,7 @@
 
   var E = window.SlotEngine;
   var CFG = window.SITE_CONFIG;
+  E.setPayoutScale(CFG.payoutScale || 1);
   var SKINS = window.SKINS;
   var STORE_KEY = 'luckyParlor.v1';
   var $ = function (id) { return document.getElementById(id); };
@@ -589,7 +590,7 @@
   function openHelp() {
     $('helpWild').textContent = skin.symbols.W.icon;
     $('helpScatter').textContent = skin.symbols.S.icon;
-    var b = bet(), unit = b / E.BET_DIVISOR;
+    var b = bet(), unit = b / E.BET_DIVISOR * E.getPayoutScale();
     var rows = '<tr><th>Symbol</th><th>3</th><th>4</th><th>5</th></tr>';
     ['H1', 'H2', 'H3', 'H4', 'A', 'K', 'Q', 'J', 'T'].forEach(function (k) {
       var d = skin.symbols[k];
@@ -600,7 +601,7 @@
       }).join('') + '</tr>';
     });
     rows += '<tr><td><span class="pt-sym">' + iconHTML(skin.symbols.S.icon) + '</span> Bonus (anywhere)</td>' + [3, 4, 5].map(function (n) {
-      return '<td class="num">' + short(E.SCATTER_PAY[n] * b) + '<br><small>+' + E.FREE_SPINS[n] + ' spins</small></td>';
+      return '<td class="num">' + short(E.SCATTER_PAY[n] * b * E.getPayoutScale()) + '<br><small>+' + E.FREE_SPINS[n] + ' spins</small></td>';
     }).join('') + '</tr>';
     $('payTable').innerHTML = rows;
     $('helpDlg').showModal();

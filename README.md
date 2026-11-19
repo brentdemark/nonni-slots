@@ -62,12 +62,12 @@ If you add images, list them in `sw.js` → `FILES` so they work offline.
 
 ## Odds
 
-The default settings return about 96% of coins bet over the long run. About 37% of spins win something, free spins trigger about once every 110 spins,
+`payoutScale` in `js/config.js` multiplies every payout: 1.0 returns about 96% of coins bet over the long run, and 1.05 (the current setting) about 101%. About 37% of spins win something, free spins trigger about once every 110 spins,
 and a 10×-bet win comes about once every 60 spins. On top of that are the hourly gift, level-up rewards and refills, so nobody gets stuck.
 If you change `engine.js`, rerun the check:
 
 ```
-node tools/simulate.js 2000000 ../js/engine.js
+node tools/simulate.js 2000000
 ```
 
 ## Saving

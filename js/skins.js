@@ -64,5 +64,31 @@ window.SKINS = [
       J:  { color: '#4cc9f0', name: 'Jack' },
       T:  { color: '#c77dff', name: 'Ten' }
     }
+  },
+  {
+    id: 'farm',
+    name: 'Sunny Farm',
+    tagline: 'Cows, pigs and a lucky tractor',
+    theme: {
+      bg1: '#5aa3d6', bg2: '#1f4f75',      // blue sky
+      frame: '#d9a441', frameDark: '#8a5a1c', // straw / wood
+      reelBg: '#4f9a35', reelBg2: '#356e22',  // grass
+      panel: '#a8322d', panel2: '#6e1d1a',    // red barn
+      accent: '#ffe27a', text: '#ffffff',
+      title: 'Sunny Farm'
+    },
+    symbols: {
+      W:  { icon: '🚜', label: 'WILD',  name: 'Tractor (Wild)', ring: '#ffd23f' },
+      S:  { icon: '🥚', label: 'BONUS', name: 'Egg (Bonus)', ring: '#fff3c4' },
+      H1: { icon: '🐄', name: 'Cow',     ring: '#f2f2f2' },
+      H2: { icon: '🐖', name: 'Pig',     ring: '#ff9fb3' },
+      H3: { icon: '🐓', name: 'Rooster', ring: '#e8463c' },
+      H4: { icon: '🐑', name: 'Sheep',   ring: '#cfd8dc' },
+      A:  { color: '#ff5a4e', name: 'Ace' },
+      K:  { color: '#ffd23f', name: 'King' },
+      Q:  { color: '#7fd4ff', name: 'Queen' },
+      J:  { color: '#ffffff', name: 'Jack' },
+      T:  { color: '#f08bff', name: 'Ten' }
+    }
   }
 ];

@@ -43,6 +43,10 @@
   var FREE_SPINS = { 3: 8, 4: 12, 5: 20 };
   var FREE_SPIN_MULTIPLIER = 2;
 
+  // Multiplies every payout. Set from SITE_CONFIG.payoutScale (1.0 = about 96% payback).
+  var payoutScale = 1;
+  function setPayoutScale(x) { payoutScale = x > 0 ? +x : 1; }
+
   var tables = REEL_WEIGHTS.map(function (w) {
     var list = [], total = 0;
     Object.keys(w).forEach(function (k) { total += w[k]; list.push([k, total]); });
@@ -106,7 +110,7 @@
       if (count >= 3 && pay > 0) {
         // keep only cells on the reels that counted
         cells = cells.filter(function (c) { return c[0] < count; });
-        var amount = Math.round(ways * pay * unit * multiplier);
+        var amount = Math.round(ways * pay * unit * multiplier * payoutScale);
         total += amount;
         wins.push({ sym: sym, count: count, ways: ways, amount: amount, cells: cells });
       }
@@ -118,7 +122,7 @@
         if (grid[r][y] === 'S') sc.push([r, y]);
     scatter.count = sc.length;
     if (SCATTER_PAY[sc.length]) {
-      scatter.amount = Math.round(bet * SCATTER_PAY[sc.length] * multiplier);
+      scatter.amount = Math.round(bet * SCATTER_PAY[sc.length] * multiplier * payoutScale);
       scatter.freeSpins = FREE_SPINS[sc.length];
       total += scatter.amount;
     }
@@ -130,7 +134,9 @@
     REELS: REELS, ROWS: ROWS, PAYS: PAYS, BET_DIVISOR: BET_DIVISOR,
     SCATTER_PAY: SCATTER_PAY, FREE_SPINS: FREE_SPINS,
     FREE_SPIN_MULTIPLIER: FREE_SPIN_MULTIPLIER,
-    spinGrid: spinGrid, evaluate: evaluate, randomSymbol: randomSymbol
+    spinGrid: spinGrid, evaluate: evaluate, randomSymbol: randomSymbol,
+    setPayoutScale: setPayoutScale,
+    getPayoutScale: function () { return payoutScale; }
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

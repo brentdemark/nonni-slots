@@ -14,6 +14,9 @@ window.SITE_CONFIG = {
   showAdPlaceholders: true,
 
   // ---- Game economy (pretend coins) ----
+  // Multiplies every payout. 1.0 pays back about 96% of coins bet; 1.05 about 101%.
+  // Changes how much wins pay, not how often they happen. Check with: node tools/simulate.js
+  payoutScale: 1.05,
   startingCoins: 250000,
   bets: [1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000],
   defaultBetIndex: 2,
