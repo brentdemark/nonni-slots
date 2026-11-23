@@ -5,7 +5,8 @@
   var CFG = window.SITE_CONFIG;
   E.setPayoutScale(CFG.payoutScale || 1);
   var SKINS = window.SKINS;
-  var STORE_KEY = 'luckyParlor.v1';
+  var STORE_KEY = 'nonniSlots.v1';
+  var OLD_KEYS = ['luckyParlor.v1']; // earlier names; progress is copied over once
   var $ = function (id) { return document.getElementById(id); };
 
   /* ------------------------------------------------------------------ *
@@ -29,10 +30,13 @@
 
   function load() {
     var raw = null;
-    try { raw = localStorage.getItem(STORE_KEY); } catch (e) {}
-    if (!raw) {
-      var m = document.cookie.match(new RegExp('(?:^|; )' + STORE_KEY + '=([^;]*)'));
-      if (m) raw = decodeURIComponent(m[1]);
+    var keys = [STORE_KEY].concat(OLD_KEYS);
+    for (var i = 0; i < keys.length && !raw; i++) {
+      try { raw = localStorage.getItem(keys[i]); } catch (e) {}
+      if (!raw) {
+        var m = document.cookie.match(new RegExp('(?:^|; )' + keys[i].replace('.', '\\.') + '=([^;]*)'));
+        if (m) raw = decodeURIComponent(m[1]);
+      }
     }
     var s = {};
     try { s = raw ? JSON.parse(raw) : {}; } catch (e) { s = {}; }

@@ -1,4 +1,4 @@
-# Lucky Parlor Slots
+# Nonni Slots
 
 A free, static slot machine game: nothing to buy, no logins, no pop-ups. Progress is saved in the player's browser.
 The whole site is about 60 KB with no frameworks and no images (symbols are emoji, sounds are generated in the browser),
@@ -72,7 +72,7 @@ node tools/simulate.js 2000000
 
 ## Saving
 
-State lives in `localStorage` under `luckyParlor.v1`, with a cookie as a fallback.
+State lives in `localStorage` under `nonniSlots.v1`, with a cookie as a fallback. Progress saved under the old `luckyParlor.v1` key is copied over automatically.
 localStorage is used instead of a cookie because cookies are sent to the server on every request and are limited to 4 KB.
 Progress is saved per browser: if they switch from the iPad to the laptop, they start fresh there.
 "Start over" in the footer resets it.
