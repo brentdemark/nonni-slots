@@ -3,7 +3,7 @@
  * connection. Bump VERSION whenever you change any file so visitors get the update.
  * Ads and other outside requests are never cached.
  */
-var VERSION = 'parlor-v2';
+var VERSION = 'parlor-v3';
 var FILES = [
   './', 'index.html', 'privacy.html', 'css/style.css',
   'js/config.js', 'js/engine.js', 'js/skins.js', 'js/sound.js', 'js/game.js', 'js/ads.js',
