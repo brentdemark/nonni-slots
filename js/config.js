@@ -1,10 +1,9 @@
 /* Site settings — the only file you normally need to edit. */
 window.SITE_CONFIG = {
   // ---- Google AdSense ----
-  // Leave adsenseClient empty until AdSense approves the site.
-  // Then paste your publisher id, e.g. "ca-pub-1234567890123456",
-  // and the numeric ad-unit ids you create in AdSense for each spot.
-  adsenseClient: '',
+  // Your AdSense publisher id. After AdSense approves the site, create an ad unit
+  // for each spot below and paste its numeric id. Spots without an id stay hidden.
+  adsenseClient: 'ca-pub-5505997369363012',
   adSlots: {
     left: '',    // 160x600 skyscraper, wide screens only
     right: '',   // 160x600 skyscraper, wide screens only
