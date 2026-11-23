@@ -41,11 +41,36 @@
     var s = {};
     try { s = raw ? JSON.parse(raw) : {}; } catch (e) { s = {}; }
     var out = {};
-    Object.keys(defaults).forEach(function (k) { out[k] = s[k] !== undefined ? s[k] : defaults[k]; });
+    if (!s || typeof s !== 'object') s = {};
+    // Only accept saved values of the expected type, so edited or corrupted
+    // storage can't inject anything into the page.
+    Object.keys(defaults).forEach(function (k) {
+      var v = s[k], d = defaults[k];
+      if (typeof d === 'number') out[k] = (typeof v === 'number' && isFinite(v)) ? v : d;
+      else if (typeof d === 'boolean') out[k] = typeof v === 'boolean' ? v : d;
+      else if (typeof d === 'string') out[k] = typeof v === 'string' ? v : d;
+      else out[k] = d;
+    });
+    if (s.stats && typeof s.stats === 'object') {
+      out.stats = {
+        spins: isFinite(s.stats.spins) ? Math.max(0, +s.stats.spins) : 0,
+        biggestWin: isFinite(s.stats.biggestWin) ? Math.max(0, +s.stats.biggestWin) : 0
+      };
+    } else out.stats = { spins: 0, biggestWin: 0 };
+    out.grid = validGrid(s.grid) ? s.grid : null;
+    out.freeSpins = Math.max(0, Math.floor(out.freeSpins));
+    out.level = Math.max(1, Math.floor(out.level));
     if (!(out.balance >= 0)) out.balance = CFG.startingCoins;
     if (!CFG.bets[out.betIndex]) out.betIndex = CFG.defaultBetIndex;
     if (!SKINS.some(function (k) { return k.id === out.skin; })) out.skin = CFG.defaultSkin;
     return out;
+  }
+
+  function validGrid(g) {
+    var ok = { W: 1, S: 1, H1: 1, H2: 1, H3: 1, H4: 1, A: 1, K: 1, Q: 1, J: 1, T: 1 };
+    return Array.isArray(g) && g.length === E.REELS && g.every(function (col) {
+      return Array.isArray(col) && col.length === E.ROWS && col.every(function (x) { return ok[x] === 1; });
+    });
   }
 
   var saveTimer = null;
@@ -58,7 +83,8 @@
     try { localStorage.setItem(STORE_KEY, data); return; } catch (e) {}
     try {
       document.cookie = STORE_KEY + '=' + encodeURIComponent(data) +
-        '; max-age=' + 60 * 60 * 24 * 365 * 5 + '; path=/; SameSite=Lax';
+        '; max-age=' + 60 * 60 * 24 * 365 * 5 + '; path=/; SameSite=Lax' +
+        (location.protocol === 'https:' ? '; Secure' : '');
     } catch (e) {}
   }
 
