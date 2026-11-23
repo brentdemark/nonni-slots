@@ -198,6 +198,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .ad-slot.placeholder::before { content: "Ad space"; }
 .ad-slot.empty { display: none; }
 
+.info {
+  max-width: 760px; margin: 36px auto 0; padding: 26px 28px;
+  background: rgba(0,0,0,.28); border: 2px solid #ffffff22; border-radius: 20px;
+  font-size: 19px; line-height: 1.6;
+}
+.info h2 { font-family: var(--heavy); color: var(--accent); font-size: 24px; margin: 26px 0 8px; }
+.info h2:first-child { margin-top: 0; }
+.info p { margin: 0 0 12px; }
+.info ul, .info ol { margin: 0 0 12px; padding-left: 24px; }
+.info li { margin-bottom: 6px; }
+.info a { color: var(--accent); }
+.faq dt { font-weight: 800; margin-top: 12px; }
+.faq dd { margin: 2px 0 0; opacity: .92; }
+@media (max-width: 760px) { .info { padding: 18px 16px; font-size: 18px; margin-top: 24px; } }
 .foot { text-align: center; font-size: 15px; opacity: .8; padding: 20px 10px 40px; }
 .foot a, .linklike { color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; font-size: inherit; }
 
